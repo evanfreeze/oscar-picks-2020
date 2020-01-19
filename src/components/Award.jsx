@@ -1,40 +1,36 @@
 import React from 'React'
+import styled from 'styled-components'
 
-const createIdForNominee = (nominee, award) => {
-    const nameStr = nominee.name
-        .split(' ')
-        .join('-')
-        .toLowerCase()
-    const awardStr = award.title
-        .split(' ')
-        .join('-')
-        .toLowerCase()
-    return nameStr + awardStr
-}
+import Nominee from './Nominee'
 
-const Award = ({ award }) => {
+const Award = ({ award, currentPick, setNewPick }) => {
+    const setPickValue = nomineeId => {
+        setNewPick(award.id, nomineeId)
+    }
+
     return (
-        <section>
+        <StyledAward>
             <h3>{award.title}</h3>
             {award.nominees.map(nominee => {
-                const id = createIdForNominee(nominee, award)
                 return (
-                    <div key={id} style={{ display: 'flex', alignItems: 'center' }}>
-                        <input type="radio" id={id} />
-                        <label htmlFor={id}>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <img src={nominee.image} height="100px" />
-                                <div>
-                                    <h4>{nominee.name}</h4>
-                                    <h5>{nominee.description}</h5>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
+                    <Nominee
+                        key={nominee.id}
+                        name={award.id}
+                        nominee={nominee}
+                        picked={currentPick === nominee.id}
+                        setPickValue={setPickValue}
+                    />
                 )
             })}
-        </section>
+        </StyledAward>
     )
 }
+
+const StyledAward = styled.section`
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    padding: 0px 14px 20px;
+    border-radius: 6px;
+    margin: 20px 0;
+`
 
 export default Award

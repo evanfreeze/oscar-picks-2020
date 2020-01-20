@@ -33,7 +33,7 @@ const AwardList = ({ userId }) => {
 
     return (
         <AwardsAndNominees>
-            <h2>Awards & Nominees</h2>
+            <h2 id="your-picks">Your picks</h2>
             <article>
                 {loading && <p>Loading picks...</p>}
                 {!loading &&
@@ -52,6 +52,7 @@ const AwardList = ({ userId }) => {
 
 const AwardsAndNominees = styled.main`
     color: black;
+    padding: 20px;
 `
 
 export default AwardList

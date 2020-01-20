@@ -58,9 +58,9 @@ const Award = ({ award, currentPick, setNewPick }) => {
 const StyledAward = styled.section`
     padding: 14px 0 28px;
     border-bottom: 2px solid #ddd;
-    margin: 20px;
+    margin: 20px 0;
     background: white;
-    max-width: 450px;
+    max-width: 600px;
 `
 
 const AwardHeader = styled.header`

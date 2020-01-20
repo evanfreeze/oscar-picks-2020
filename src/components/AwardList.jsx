@@ -1,41 +1,57 @@
 import React, { useState, useEffect } from 'react'
 import Award from './Award'
+import firebase from '../firebase'
+import styled from 'styled-components'
 
+import { FIREBASE_PATH } from '../constants'
 import * as awardsData from '../awards-data.json'
 
-const AwardList = () => {
-    const savedPicks = localStorage.getItem('oscar-picks-2020')
-        ? JSON.parse(localStorage.getItem('oscar-picks-2020'))
-        : {}
-    const [picks, setPicks] = useState(savedPicks)
+const AwardList = ({ userId }) => {
+    const userPath = `${FIREBASE_PATH}/${userId}`
+    const [loading, setLoading] = useState(true)
+    const [picks, setPicks] = useState({})
 
     useEffect(() => {
-        localStorage.setItem('oscar-picks-2020', JSON.stringify(picks))
-        console.log(picks)
-    }, [picks])
+        firebase
+            .database()
+            .ref(userPath)
+            .on('value', data => {
+                if (data.val()) {
+                    setPicks(data.val())
+                }
+                setLoading(false)
+            })
+    }, [])
 
     const setNewPick = (awardId, nomineeId) => {
-        setPicks({
-            ...picks,
-            [awardId]: nomineeId,
-        })
+        const awardPath = `${userPath}/${awardId}`
+        firebase
+            .database()
+            .ref(awardPath)
+            .set(nomineeId)
     }
 
     return (
-        <main>
+        <AwardsAndNominees>
             <h2>Awards & Nominees</h2>
             <article>
-                {awardsData.awards.map(award => (
-                    <Award
-                        key={award.title}
-                        award={award}
-                        setNewPick={setNewPick}
-                        currentPick={picks[award.id]}
-                    />
-                ))}
+                {loading && <p>Loading picks...</p>}
+                {!loading &&
+                    awardsData.awards.map(award => (
+                        <Award
+                            key={award.title}
+                            award={award}
+                            setNewPick={setNewPick}
+                            currentPick={picks[award.id] || null}
+                        />
+                    ))}
             </article>
-        </main>
+        </AwardsAndNominees>
     )
 }
+
+const AwardsAndNominees = styled.main`
+    color: black;
+`
 
 export default AwardList

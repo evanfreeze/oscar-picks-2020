@@ -8,7 +8,7 @@ const Nominee = ({ name, nominee, picked, setPickValue }) => {
     }
 
     return (
-        <NomineeLabel key={nominee.id} htmlFor={nominee.id}>
+        <NomineeLabel key={nominee.id} htmlFor={nominee.id} picked={picked}>
             <NomineeRadio
                 type="radio"
                 id={nominee.id}
@@ -30,11 +30,13 @@ const NomineeLabel = styled.label`
     display: flex;
     align-items: center;
     padding: 10px 0;
+    border-radius: 4px;
+    background: ${props => (props.picked ? 'rgba(50,190,170,0.2)' : 'initial')};
 `
 
 const NomineeRadio = styled.input`
-    font-size: 2rem;
-    margin-right: 10px;
+    visibility: hidden;
+    margin-left: -2px;
 `
 
 const NomineeImage = styled.img`
@@ -48,15 +50,15 @@ const NomineeText = styled.div`
 `
 
 const NomineeTitle = styled.h4`
-    font-size: 1.5rem;
+    // font-size: 1.5rem;
     padding: 0;
     margin: 0;
 `
 
 const NomineeDescription = styled.h5`
-    font-size: 0.8rem;
+    // font-size: 1.1rem;
     font-weight: normal;
-    color: rgba(0, 0, 0, 0.7);
+    color: rgba(0, 0, 0, 0.5);
     padding: 0.2rem 0;
     margin: 0;
     width: 240px;

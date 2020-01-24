@@ -22,19 +22,12 @@ const App = () => {
 
     return (
         <StyledApp>
-            <div
-                style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    background: 'white',
-                }}
-            >
+            <HeaderContainer>
                 <AppHeader>
                     <h1>Oscar Picks 2020</h1>
                     <UserInfo user={user} setUser={setUser} />
                 </AppHeader>
-            </div>
+            </HeaderContainer>
             <AppNav>
                 <a href="#your-picks">Your picks</a>
                 <a href="#stats">Stats</a>
@@ -72,6 +65,13 @@ const AppContent = styled.section`
     @media (max-width: 640px) {
         grid-template-columns: 1fr;
     }
+`
+
+const HeaderContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: white;
 `
 
 const AppHeader = styled.header`

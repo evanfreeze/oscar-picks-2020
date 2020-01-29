@@ -13,7 +13,11 @@ const Results = () => {
     const { winners, loading } = useContext(AwardWinners)
 
     if (loading) {
-        return <p>Loading...</p>
+        return (
+            <Section title="Results" id="results">
+                <p>Loading...</p>
+            </Section>
+        )
     }
 
     return (

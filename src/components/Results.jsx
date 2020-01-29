@@ -20,7 +20,6 @@ const Results = () => {
         <Section title="Results" id="results">
             <p>The Oscars are {timeUntilOscars}</p>
             <p>No categories have been awarded</p>
-            <pre>{JSON.stringify(winners, null, 2)}</pre>
         </Section>
     )
 }

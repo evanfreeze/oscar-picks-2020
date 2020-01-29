@@ -121,7 +121,7 @@ const StyledAwardList = styled.section`
 `
 
 const NomineeName = styled.span`
-    color: rgba(50, 190, 170, 0.7);
+    color: rgba(50, 190, 170, 1);
     font-weight: bold;
 `
 

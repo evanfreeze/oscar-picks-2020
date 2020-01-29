@@ -13,35 +13,33 @@ const App = () => {
     const { user, renderUserInfoWidget } = useContext(User)
 
     return (
-        <UserInfo>
-            <StyledApp>
-                <HeaderContainer>
-                    <AppHeader>
-                        <h1>Oscar Picks 2020</h1>
-                        {renderUserInfoWidget()}
-                    </AppHeader>
-                </HeaderContainer>
-                <AppNav>
-                    <a href="#your-picks">Your picks</a>
-                    <a href="#stats">Stats</a>
-                    <a href="#results">Results</a>
-                </AppNav>
-                {!user && (
-                    <EmptyState>Click &ldquo;Sign in&rdquo; at the top to get started</EmptyState>
+        <StyledApp>
+            <HeaderContainer>
+                <AppHeader>
+                    <h1>Oscar Picks 2020</h1>
+                    {renderUserInfoWidget()}
+                </AppHeader>
+            </HeaderContainer>
+            <AppNav>
+                <a href="#your-picks">Your picks</a>
+                <a href="#stats">Stats</a>
+                <a href="#results">Results</a>
+            </AppNav>
+            {!user && (
+                <EmptyState>Click &ldquo;Sign in&rdquo; at the top to get started</EmptyState>
+            )}
+            <AppContent>
+                {user && (
+                    <Picks userId={user.uid}>
+                        <Winners>
+                            <AwardList />
+                            <Stats />
+                            <Results />
+                        </Winners>
+                    </Picks>
                 )}
-                <AppContent>
-                    {user && (
-                        <Picks userId={user.uid}>
-                            <Winners>
-                                <AwardList />
-                                <Stats />
-                                <Results />
-                            </Winners>
-                        </Picks>
-                    )}
-                </AppContent>
-            </StyledApp>
-        </UserInfo>
+            </AppContent>
+        </StyledApp>
     )
 }
 

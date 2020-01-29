@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { IoIosArrowDropright, IoIosArrowDropdown } from 'react-icons/io'
 
+import { AwardWinners } from '../contexts/Winners'
+import { User } from '../contexts/UserInfo'
 import Nominee from './Nominee'
 import { getNomineeNameFromId } from '../helpers'
 
 const Award = ({ award, currentPick, setNewPick }) => {
     const [collapsed, setCollapsed] = useState(Boolean(currentPick))
+    const { recordWinner, winners } = useContext(AwardWinners)
+    const { isAdmin } = useContext(User)
 
     const setPickValue = nomineeId => {
         setNewPick(award.id, nomineeId)
         setTimeout(() => {
             setCollapsed(true)
         }, 1000)
+    }
+
+    function adminSetWinner(event) {
+        const {
+            target: { value, name },
+        } = event
+        recordWinner(name, value)
     }
 
     return (
@@ -35,6 +46,21 @@ const Award = ({ award, currentPick, setNewPick }) => {
                     {collapsed ? <IoIosArrowDropright /> : <IoIosArrowDropdown />}
                 </ExpandCollapseButton>
             </AwardHeader>
+
+            {isAdmin && (
+                <WinnerSelect
+                    name={award.id}
+                    onBlur={adminSetWinner}
+                    defaultValue={winners[award.id]}
+                >
+                    <option value="TBA">Choose {award.title} winner...</option>
+                    {award.nominees.map(nominee => (
+                        <option key={nominee.id} value={nominee.id}>
+                            {nominee.name}
+                        </option>
+                    ))}
+                </WinnerSelect>
+            )}
 
             {!collapsed && (
                 <StyledAwardList>
@@ -71,7 +97,6 @@ const AwardHeader = styled.header`
 `
 
 const AwardTitle = styled.h3`
-    // font-size: 2.2rem;
     margin: 0;
     padding: 0;
 `
@@ -101,6 +126,11 @@ const NomineeName = styled.span`
 const ErrorText = styled.span`
     color: red;
     font-weight: bold;
+`
+
+const WinnerSelect = styled.select`
+    padding: 10px;
+    width: 100%;
 `
 
 export default Award

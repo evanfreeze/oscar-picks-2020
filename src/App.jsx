@@ -1,51 +1,47 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { render } from 'react-dom'
 import styled from 'styled-components'
-import { auth } from './firebase'
 
 import Picks from './contexts/Picks'
+import Winners from './contexts/Winners'
 import AwardList from './components/AwardList'
-import UserInfo from './components/UserInfo'
+import UserInfo, { User } from './contexts/UserInfo'
 import Stats from './components/Stats'
 import Results from './components/Results'
 
 const App = () => {
-    const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                setUser(user)
-            }
-        })
-    }, [])
+    const { user, renderUserInfoWidget } = useContext(User)
 
     return (
-        <StyledApp>
-            <HeaderContainer>
-                <AppHeader>
-                    <h1>Oscar Picks 2020</h1>
-                    <UserInfo user={user} setUser={setUser} />
-                </AppHeader>
-            </HeaderContainer>
-            <AppNav>
-                <a href="#your-picks">Your picks</a>
-                <a href="#stats">Stats</a>
-                <a href="#results">Results</a>
-            </AppNav>
-            {!user && (
-                <EmptyState>Click &ldquo;Sign in&rdquo; at the top to get started</EmptyState>
-            )}
-            <AppContent>
-                {user && (
-                    <Picks userId={user.uid}>
-                        <AwardList />
-                        <Stats />
-                        <Results />
-                    </Picks>
+        <UserInfo>
+            <StyledApp>
+                <HeaderContainer>
+                    <AppHeader>
+                        <h1>Oscar Picks 2020</h1>
+                        {renderUserInfoWidget()}
+                    </AppHeader>
+                </HeaderContainer>
+                <AppNav>
+                    <a href="#your-picks">Your picks</a>
+                    <a href="#stats">Stats</a>
+                    <a href="#results">Results</a>
+                </AppNav>
+                {!user && (
+                    <EmptyState>Click &ldquo;Sign in&rdquo; at the top to get started</EmptyState>
                 )}
-            </AppContent>
-        </StyledApp>
+                <AppContent>
+                    {user && (
+                        <Picks userId={user.uid}>
+                            <Winners>
+                                <AwardList />
+                                <Stats />
+                                <Results />
+                            </Winners>
+                        </Picks>
+                    )}
+                </AppContent>
+            </StyledApp>
+        </UserInfo>
     )
 }
 
@@ -123,4 +119,9 @@ const EmptyState = styled.h2`
     font-size: 1rem;
 `
 
-render(<App />, document.getElementById('root'))
+render(
+    <UserInfo>
+        <App />
+    </UserInfo>,
+    document.getElementById('root'),
+)

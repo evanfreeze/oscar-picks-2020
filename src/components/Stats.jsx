@@ -30,7 +30,7 @@ const Stats = () => {
 
     function renderStats() {
         const pickCount = Object.keys(picks).length
-        const percentage = (Math.round(pickCount / 24) * 100).toFixed(0)
+        const percentage = ((pickCount / 24) * 100).toFixed(0)
 
         const [mostPicked, count] = calculateMostPicked()
 

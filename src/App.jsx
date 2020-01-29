@@ -1,31 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { render } from 'react-dom'
 import styled from 'styled-components'
-import { auth } from './firebase'
 
 import Picks from './contexts/Picks'
+import Winners from './contexts/Winners'
 import AwardList from './components/AwardList'
-import UserInfo from './components/UserInfo'
+import UserInfo, { User } from './contexts/UserInfo'
 import Stats from './components/Stats'
 import Results from './components/Results'
 
 const App = () => {
-    const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                setUser(user)
-            }
-        })
-    }, [])
+    const { user, renderUserInfoWidget } = useContext(User)
 
     return (
         <StyledApp>
             <HeaderContainer>
                 <AppHeader>
                     <h1>Oscar Picks 2020</h1>
-                    <UserInfo user={user} setUser={setUser} />
+                    {renderUserInfoWidget()}
                 </AppHeader>
             </HeaderContainer>
             <AppNav>
@@ -39,9 +31,11 @@ const App = () => {
             <AppContent>
                 {user && (
                     <Picks userId={user.uid}>
-                        <AwardList />
-                        <Stats />
-                        <Results />
+                        <Winners>
+                            <AwardList />
+                            <Stats />
+                            <Results />
+                        </Winners>
                     </Picks>
                 )}
             </AppContent>
@@ -123,4 +117,9 @@ const EmptyState = styled.h2`
     font-size: 1rem;
 `
 
-render(<App />, document.getElementById('root'))
+render(
+    <UserInfo>
+        <App />
+    </UserInfo>,
+    document.getElementById('root'),
+)

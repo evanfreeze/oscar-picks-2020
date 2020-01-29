@@ -55,7 +55,9 @@ const Stats = () => {
                     topThree.map(pick => (
                         <TopThreePick key={pick.name}>
                             <h4>{pick.name}</h4>
-                            <h5>{pick.count} categories</h5>
+                            <h5>
+                                {pick.count} {pick.count > 1 ? 'categories' : 'category'}
+                            </h5>
                         </TopThreePick>
                     ))}
             </>

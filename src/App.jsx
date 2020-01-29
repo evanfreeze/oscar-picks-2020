@@ -84,6 +84,7 @@ const AppHeader = styled.header`
 
     & h1 {
         margin: 0;
+        font-family: 'Roboto Slab';
     }
 `
 

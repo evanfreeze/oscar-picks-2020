@@ -82,9 +82,9 @@ const Award = ({ award, currentPick, setNewPick }) => {
 }
 
 const StyledAward = styled.section`
-    padding: 14px 0 28px;
+    padding: 0 0 12px;
     border-bottom: 2px solid #ddd;
-    margin: 20px 0;
+    margin: 10px 0;
     background: white;
     max-width: 600px;
 `
@@ -99,11 +99,13 @@ const AwardHeader = styled.header`
 const AwardTitle = styled.h3`
     margin: 0;
     padding: 0;
+    font-family: 'Roboto Slab';
 `
 
 const AwardYouPicked = styled.p`
-    margin: 0.8rem 0 0;
+    margin: 0.4rem 0 0;
     color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8rem;
 `
 
 const ExpandCollapseButton = styled.button`

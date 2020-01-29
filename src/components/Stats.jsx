@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import styled from 'styled-components'
 
 import { UserPicks } from '../contexts/Picks'
 import Section from './Section'
@@ -23,27 +24,40 @@ const Stats = () => {
         const sortedKeys = Object.keys(dedupeWithCounts).sort(
             (key1, key2) => dedupeWithCounts[key2] - dedupeWithCounts[key1],
         )
-        const mostPicked = sortedKeys[0]
-        const mostPickedCount = dedupeWithCounts[sortedKeys[0]]
-        return [mostPicked, mostPickedCount]
+        const topThree = [
+            { name: [sortedKeys[0]], count: dedupeWithCounts[sortedKeys[0]] },
+            { name: [sortedKeys[1]], count: dedupeWithCounts[sortedKeys[1]] },
+            { name: [sortedKeys[2]], count: dedupeWithCounts[sortedKeys[2]] },
+        ]
+        return topThree
     }
 
     function renderStats() {
         const pickCount = Object.keys(picks).length
         const percentage = ((pickCount / 24) * 100).toFixed(0)
 
-        const [mostPicked, count] = calculateMostPicked()
+        const topThree = calculateMostPicked()
 
         return (
             <>
-                <p>
+                <Subhead>Progress</Subhead>
+                <Caption>
                     You&apos;ve picked {pickCount} of 24 awards ({percentage}%)
-                </p>
-                {pickCount > 0 && (
-                    <p>
-                        Your most-picked nominee is {mostPicked} with {count} awards
-                    </p>
-                )}
+                </Caption>
+                <ProgressBg>
+                    <ProgressFill percentage={percentage}></ProgressFill>
+                </ProgressBg>
+                <Subhead>Most picked</Subhead>
+                <Caption>
+                    You&apos;ll see your most picked nominees here as you make selections
+                </Caption>
+                {pickCount >= 3 &&
+                    topThree.map(pick => (
+                        <TopThreePick key={pick.name}>
+                            <h4>{pick.name}</h4>
+                            <h5>{pick.count} categories</h5>
+                        </TopThreePick>
+                    ))}
             </>
         )
     }
@@ -66,5 +80,51 @@ const Stats = () => {
         </Section>
     )
 }
+
+const Subhead = styled.h3`
+    font-family: 'Roboto Slab';
+    margin: 0;
+    margin-top: 30px;
+`
+
+const ProgressBg = styled.div`
+    background: #f3f3f5;
+    width: 100%;
+    height: 20px;
+    border-radius: 6px;
+`
+
+const ProgressFill = styled.div`
+    width: ${props => props.percentage}%;
+    height: 20px;
+    border-radius: ${props => (props.percentage < 100 ? '6px 0 0 6px' : '6px')};
+    background: rgba(50, 190, 170, 1.4);
+`
+
+const Caption = styled.p`
+    margin: 8px 0 16px;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.6);
+`
+
+const TopThreePick = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1rem;
+    background: #f3f3f5;
+    border-radius: 10px;
+    margin: 10px 0;
+
+    h4,
+    h5 {
+        margin: 0;
+    }
+
+    h5 {
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: normal;
+    }
+`
 
 export default Stats

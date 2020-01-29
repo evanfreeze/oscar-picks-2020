@@ -18,7 +18,7 @@ const Results = () => {
 
     return (
         <Section title="Results" id="results">
-            <SubSection title="Countdown to showtime" subtitle="The Oscars broadcast begins in...">
+            <SubSection title="Countdown to showtime" subtitle="The broadcast begins in...">
                 <Countdown />
             </SubSection>
         </Section>

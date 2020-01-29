@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { UserPicks } from '../contexts/Picks'
 import Section from './Section'
 import { getNomineeFromId } from '../helpers'
+import SubSection from './SubSection'
 
 const Stats = () => {
     const { loading, picks } = useContext(UserPicks)
@@ -40,26 +41,29 @@ const Stats = () => {
 
         return (
             <>
-                <Subhead>Progress</Subhead>
-                <Caption>
-                    You&apos;ve picked {pickCount} of 24 awards ({percentage}%)
-                </Caption>
-                <ProgressBg>
-                    <ProgressFill percentage={percentage}></ProgressFill>
-                </ProgressBg>
-                <Subhead>Most picked</Subhead>
-                <Caption>
-                    You&apos;ll see your most picked nominees here as you make selections
-                </Caption>
-                {pickCount >= 3 &&
-                    topThree.map(pick => (
-                        <TopThreePick key={pick.name}>
-                            <h4>{pick.name}</h4>
-                            <h5>
-                                {pick.count} {pick.count > 1 ? 'categories' : 'category'}
-                            </h5>
-                        </TopThreePick>
-                    ))}
+                <SubSection
+                    title="Progress"
+                    subtitle={`You've picked ${pickCount} of 24 awards (${percentage}%)`}
+                >
+                    <ProgressBg>
+                        <ProgressFill percentage={percentage}></ProgressFill>
+                    </ProgressBg>
+                </SubSection>
+
+                <SubSection
+                    title="Most picked"
+                    subtitle="You'll see your most picked nominees here as you make selections"
+                >
+                    {pickCount >= 3 &&
+                        topThree.map(pick => (
+                            <TopThreePick key={pick.name}>
+                                <h4>{pick.name}</h4>
+                                <h5>
+                                    {pick.count} {pick.count > 1 ? 'categories' : 'category'}
+                                </h5>
+                            </TopThreePick>
+                        ))}
+                </SubSection>
             </>
         )
     }
@@ -83,12 +87,6 @@ const Stats = () => {
     )
 }
 
-const Subhead = styled.h3`
-    font-family: 'Roboto Slab';
-    margin: 0;
-    margin-top: 30px;
-`
-
 const ProgressBg = styled.div`
     background: #f3f3f5;
     width: 100%;
@@ -101,12 +99,6 @@ const ProgressFill = styled.div`
     height: 20px;
     border-radius: ${props => (props.percentage < 100 ? '6px 0 0 6px' : '6px')};
     background: rgba(50, 190, 170, 1.4);
-`
-
-const Caption = styled.p`
-    margin: 8px 0 16px;
-    font-size: 0.8rem;
-    color: rgba(0, 0, 0, 0.6);
 `
 
 const TopThreePick = styled.div`

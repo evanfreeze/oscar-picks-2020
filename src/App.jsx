@@ -33,8 +33,10 @@ const App = () => {
                     <Picks userId={user.uid}>
                         <Winners>
                             <AwardList />
-                            <Stats />
-                            <Results />
+                            <aside>
+                                <Stats />
+                                <Results />
+                            </aside>
                         </Winners>
                     </Picks>
                 )}
@@ -48,9 +50,8 @@ const StyledApp = styled.div`
 `
 
 const AppContent = styled.section`
-    display: grid;
+    display: flex;
     justify-content: center;
-    grid-template-columns: 500px 500px 500px;
 
     @media (max-width: 1024px) {
         grid-template-columns: 1fr 1fr;

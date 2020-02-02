@@ -60,7 +60,6 @@ const NomineeDescription = styled.h5`
     color: rgba(0, 0, 0, 0.5);
     padding: 0.3rem 0;
     margin: 0;
-    width: 240px;
     font-size: 0.75rem;
 `
 

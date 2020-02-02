@@ -53,12 +53,8 @@ const AppContent = styled.section`
     display: flex;
     justify-content: center;
 
-    @media (max-width: 1024px) {
-        grid-template-columns: 1fr 1fr;
-    }
-
     @media (max-width: 640px) {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
 `
 

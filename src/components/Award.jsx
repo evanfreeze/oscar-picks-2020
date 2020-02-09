@@ -37,10 +37,10 @@ const Award = ({ award, currentPick, setNewPick }) => {
                             <NomineeName>{getNomineeNameFromId(currentPick)}</NomineeName>
                         </AwardYouPicked>
                     ) : (
-                            <AwardYouPicked>
-                                You <ErrorText>haven&apos;t picked</ErrorText> this category yet
+                        <AwardYouPicked>
+                            You <ErrorText>haven&apos;t picked</ErrorText> this category yet
                         </AwardYouPicked>
-                        )}
+                    )}
                 </div>
                 <ExpandCollapseButton>
                     {collapsed ? <IoIosArrowDropright /> : <IoIosArrowDropdown />}
@@ -118,7 +118,7 @@ const ExpandCollapseButton = styled.button`
 
 const StyledAwardList = styled.section`
     margin: 10px 0;
-    width: 450px;
+    max-width: 450px;
 `
 
 const NomineeName = styled.span`

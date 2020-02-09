@@ -9,3 +9,8 @@ export const getNomineeFromId = nomineeId => {
     const nominee = allNomineesAllAwards.find(a => a.id === nomineeId)
     return nominee
 }
+
+export const getAwardNameFromId = awardId => {
+    const matchingAward = awardsData.awards.find(award => award.id === awardId)
+    return matchingAward.title
+}

@@ -5,7 +5,9 @@ export const AwardWinners = React.createContext()
 
 const Winners = ({ children }) => {
     const [winners, setWinners] = useState({})
-    const [loading, setLoading] = useState(true)
+    const [awardsPresented, setAwardsPresented] = useState([])
+    const [loadingWinners, setLoadingWinners] = useState(true)
+    const [loadingAwardsPresented, setLoadingAwardsPresented] = useState(true)
 
     useEffect(() => {
         firebase
@@ -15,7 +17,17 @@ const Winners = ({ children }) => {
                 if (data.val()) {
                     setWinners(data.val())
                 }
-                setLoading(false)
+                setLoadingWinners(false)
+            })
+
+        firebase
+            .database()
+            .ref('2020/live')
+            .on('value', data => {
+                if (data.val()) {
+                    setAwardsPresented(data.val())
+                }
+                setLoadingAwardsPresented(false)
             })
     }, [])
 
@@ -25,10 +37,25 @@ const Winners = ({ children }) => {
             .database()
             .ref(awardPath)
             .set(winner)
+
+        if (!awardsPresented.includes(award)) {
+            firebase
+                .database()
+                .ref('2020/live')
+                .set([...awardsPresented, award])
+        }
     }
 
     return (
-        <AwardWinners.Provider value={{ winners, loading, recordWinner }}>
+        <AwardWinners.Provider
+            value={{
+                winners,
+                loadingWinners,
+                loadingAwardsPresented,
+                awardsPresented,
+                recordWinner,
+            }}
+        >
             {children}
         </AwardWinners.Provider>
     )

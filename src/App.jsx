@@ -22,8 +22,8 @@ const App = () => {
             </HeaderContainer>
             <AppNav>
                 <a href="#your-picks">Your picks</a>
-                <a href="#stats">Stats</a>
                 <a href="#results">Results</a>
+                <a href="#stats">Stats</a>
             </AppNav>
             {!user && (
                 <EmptyState>Click &ldquo;Sign in&rdquo; at the top to get started</EmptyState>
@@ -34,8 +34,8 @@ const App = () => {
                         <Winners>
                             <AwardList />
                             <aside>
-                                <Stats />
                                 <Results />
+                                <Stats />
                             </aside>
                         </Winners>
                     </Picks>

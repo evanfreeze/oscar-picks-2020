@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { OSCARS_START_TIME_EPOCH } from '../constants'
 
 function calculateTimeLeft() {
-    const oscarsStart = new Date(OSCARS_START_TIME_EPOCH * 1000).getTime()
+    const oscarsStart = new Date(OSCARS_START_TIME_EPOCH).getTime()
     const now = new Date().getTime()
     const difference = oscarsStart - now
 

@@ -9,6 +9,8 @@ export function Picks({ userId, children }) {
     const userPath = `${FIREBASE_PATH}/${userId}`
     const [loading, setLoading] = useState(true)
     const [picks, setPicks] = useState({})
+    const [loadingAllPicks, setLoadingAllPicks] = useState(true)
+    const [everyonesPicks, setEveryonesPicks] = useState({})
 
     const setNewPick = (awardId, nomineeId) => {
         const awardPath = `${userPath}/${awardId}`
@@ -19,19 +21,33 @@ export function Picks({ userId, children }) {
     }
 
     useEffect(() => {
+        if (userId) {
+            firebase
+                .database()
+                .ref(userPath)
+                .on('value', data => {
+                    if (data.val()) {
+                        setPicks(data.val())
+                    }
+                    setLoading(false)
+                })
+        }
+
         firebase
             .database()
-            .ref(userPath)
+            .ref(FIREBASE_PATH)
             .on('value', data => {
                 if (data.val()) {
-                    setPicks(data.val())
+                    setEveryonesPicks(data.val())
                 }
-                setLoading(false)
+                setLoadingAllPicks(false)
             })
     }, [])
 
     return (
-        <UserPicks.Provider value={{ loading, picks, setNewPick }}>{children}</UserPicks.Provider>
+        <UserPicks.Provider value={{ loading, picks, setNewPick, everyonesPicks, loadingAllPicks }}>
+            {children}
+        </UserPicks.Provider>
     )
 }
 

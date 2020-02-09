@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Router } from '@reach/router'
 import { render } from 'react-dom'
 import styled from 'styled-components'
 
@@ -8,6 +9,7 @@ import AwardList from './components/AwardList'
 import UserInfo, { User } from './contexts/UserInfo'
 import Stats from './components/Stats'
 import Results from './components/Results'
+import Live from './components/Live'
 
 const App = () => {
     const { user, renderUserInfoWidget } = useContext(User)
@@ -31,13 +33,11 @@ const App = () => {
             <AppContent>
                 {user && (
                     <Picks userId={user.uid}>
-                        <Winners>
-                            <AwardList />
-                            <aside>
-                                <Results />
-                                <Stats />
-                            </aside>
-                        </Winners>
+                        <AwardList />
+                        <aside>
+                            <Results />
+                            <Stats />
+                        </aside>
                     </Picks>
                 )}
             </AppContent>
@@ -117,7 +117,14 @@ const EmptyState = styled.h2`
 
 render(
     <UserInfo>
-        <App />
+        <Winners>
+            <Picks>
+                <Router>
+                    <App path="/" />
+                    <Live path="/live" />
+                </Router>
+            </Picks>
+        </Winners>
     </UserInfo>,
     document.getElementById('root'),
 )

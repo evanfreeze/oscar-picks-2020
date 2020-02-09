@@ -6,8 +6,10 @@ export const AwardWinners = React.createContext()
 const Winners = ({ children }) => {
     const [winners, setWinners] = useState({})
     const [awardsPresented, setAwardsPresented] = useState([])
+    const [currentAward, setCurrentAward] = useState([])
     const [loadingWinners, setLoadingWinners] = useState(true)
     const [loadingAwardsPresented, setLoadingAwardsPresented] = useState(true)
+    const [loadingCurrentAward, setLoadingCurrentAward] = useState(true)
 
     useEffect(() => {
         firebase
@@ -28,6 +30,16 @@ const Winners = ({ children }) => {
                     setAwardsPresented(data.val())
                 }
                 setLoadingAwardsPresented(false)
+            })
+
+        firebase
+            .database()
+            .ref('2020/current')
+            .on('value', data => {
+                if (data.val()) {
+                    setCurrentAward(data.val())
+                }
+                setLoadingCurrentAward(false)
             })
     }, [])
 
@@ -54,6 +66,9 @@ const Winners = ({ children }) => {
                 loadingAwardsPresented,
                 awardsPresented,
                 recordWinner,
+                currentAward,
+                loadingCurrentAward,
+                setCurrentAward,
             }}
         >
             {children}

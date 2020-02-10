@@ -6,7 +6,7 @@ export const AwardWinners = React.createContext()
 const Winners = ({ children }) => {
     const [winners, setWinners] = useState({})
     const [awardsPresented, setAwardsPresented] = useState([])
-    const [currentAward, setCurrentAward] = useState([])
+    const [currentAward, setCurrentAward] = useState('')
     const [loadingWinners, setLoadingWinners] = useState(true)
     const [loadingAwardsPresented, setLoadingAwardsPresented] = useState(true)
     const [loadingCurrentAward, setLoadingCurrentAward] = useState(true)
@@ -58,6 +58,13 @@ const Winners = ({ children }) => {
         }
     }
 
+    function updateCurrentAward(awardId) {
+        firebase
+            .database()
+            .ref('2020/current')
+            .set(awardId)
+    }
+
     return (
         <AwardWinners.Provider
             value={{
@@ -68,7 +75,7 @@ const Winners = ({ children }) => {
                 recordWinner,
                 currentAward,
                 loadingCurrentAward,
-                setCurrentAward,
+                updateCurrentAward,
             }}
         >
             {children}

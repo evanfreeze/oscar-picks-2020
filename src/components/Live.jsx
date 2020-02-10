@@ -35,11 +35,22 @@ const Live = () => {
     } = useContext(AwardWinners)
     const { everyonesPicks, loadingEveryonesPicks } = useContext(UserPicks)
 
-    if (loadingWinners || loadingCurrentAward || loadingEveryonesPicks) {
+    if (
+        loadingWinners ||
+        loadingCurrentAward ||
+        loadingEveryonesPicks ||
+        !currentAward ||
+        currentAward === 'start'
+    ) {
         return (
             <LiveApp>
                 <LiveContent>
-                    <FaSpinner />
+                    <Waiting>
+                        <img
+                            src="https://www.thewaltdisneycompany.com/wp-content/uploads/Oscars2017_Logo.png"
+                            width="1000px"
+                        />
+                    </Waiting>
                 </LiveContent>
             </LiveApp>
         )
@@ -70,8 +81,8 @@ const Live = () => {
         return correct.length
     }
 
-    const currentWinner = winners[currentAward] === 'TBA' ? '' : winners[currentAward]
-    const currentWinnerName = getNomineeNameFromId(currentWinner)
+    const currentWinner = winners[currentAward] === 'TBA' ? null : winners[currentAward]
+    const currentWinnerName = currentWinner ? getNomineeNameFromId(currentWinner) : ''
 
     return (
         <LiveApp>
@@ -85,9 +96,27 @@ const Live = () => {
                         <h2>Our picks</h2>
                         {FAM_IDS.map(person => {
                             const usersPick = getUsersPickForAward(person.id, currentAward)
+                            const pickBgColor = currentWinner
+                                ? usersPick.id === currentWinner
+                                    ? 'rgba(50,190,170,0.4)'
+                                    : 'rgba(255, 0, 0, 0.3)'
+                                : 'rgba(0,0,0,0.5)'
+
+                            const nameBgColor = currentWinner
+                                ? usersPick.id === currentWinner
+                                    ? 'rgba(50,190,170,0.7)'
+                                    : 'rgba(255, 0, 0, 0.5)'
+                                : 'rgba(255,255,255,0.85)'
+
+                            const nameTextColor = currentWinner ? 'white' : 'black'
 
                             return (
-                                <Pick key={person.id}>
+                                <Pick
+                                    key={person.id}
+                                    bgcolor={pickBgColor}
+                                    namegbcolor={nameBgColor}
+                                    nametextcolor={nameTextColor}
+                                >
                                     <h4>{person.name}</h4>
                                     <div>
                                         <h5>{usersPick.name}</h5>
@@ -139,7 +168,7 @@ const LiveApp = styled.main`
 `
 
 const LiveContent = styled.section`
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -209,7 +238,7 @@ const Pick = styled.div`
     padding: 0;
     font-family: sans-serif;
     margin: 6px;
-    background: rgba(0, 0, 0, 0.5);
+    background: ${props => props.bgcolor};
     border-radius: 20px;
 
     & div {
@@ -231,8 +260,8 @@ const Pick = styled.div`
     & h4 {
         font-size: 40px;
         margin: 0;
-        background: rgba(255, 255, 255, 0.85);
-        color: black;
+        background: ${props => props.namegbcolor};
+        color: ${props => props.nametextcolor};
         width: 18%;
         padding: 26px 40px;
         border-radius: 16px;
@@ -283,6 +312,14 @@ const LeaderboardRow = styled.div`
         margin: 0;
         color: rgba(0, 0, 0, 0.75);
     }
+`
+
+const Waiting = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0);
+    background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 50%);
 `
 
 export default Live

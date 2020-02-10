@@ -9,7 +9,7 @@ import { getNomineeNameFromId } from '../helpers'
 
 const Award = ({ award, currentPick, setNewPick }) => {
     const [collapsed, setCollapsed] = useState(Boolean(currentPick))
-    const { recordWinner, winners } = useContext(AwardWinners)
+    const { recordWinner, winners, updateCurrentAward, currentAward } = useContext(AwardWinners)
     const { isAdmin } = useContext(User)
 
     const setPickValue = nomineeId => {
@@ -48,18 +48,27 @@ const Award = ({ award, currentPick, setNewPick }) => {
             </AwardHeader>
 
             {isAdmin && (
-                <WinnerSelect
-                    name={award.id}
-                    onBlur={adminSetWinner}
-                    defaultValue={winners[award.id]}
-                >
-                    <option value="TBA">Choose {award.title} winner...</option>
-                    {award.nominees.map(nominee => (
-                        <option key={nominee.id} value={nominee.id}>
-                            {nominee.name}
-                        </option>
-                    ))}
-                </WinnerSelect>
+                <div>
+                    <WinnerSelect
+                        name={award.id}
+                        onBlur={adminSetWinner}
+                        defaultValue={winners[award.id]}
+                    >
+                        <option value="TBA">Choose {award.title} winner...</option>
+                        {award.nominees.map(nominee => (
+                            <option key={nominee.id} value={nominee.id}>
+                                {nominee.name}
+                            </option>
+                        ))}
+                    </WinnerSelect>
+                    {award.id !== currentAward ? (
+                        <button type="button" onClick={() => updateCurrentAward(award.id)}>
+                            Set current
+                        </button>
+                    ) : (
+                        <p>CURRENT AWARD</p>
+                    )}
+                </div>
             )}
 
             {!collapsed && (

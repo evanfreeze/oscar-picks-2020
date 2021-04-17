@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import firebase from '../firebase'
+import { ACTIVE_YEAR } from '../constants'
 
 export const AwardWinners = React.createContext()
 
@@ -14,8 +15,8 @@ const Winners = ({ children }) => {
     useEffect(() => {
         firebase
             .database()
-            .ref('2020/results')
-            .on('value', data => {
+            .ref(`${ACTIVE_YEAR}/results`)
+            .on('value', (data) => {
                 if (data.val()) {
                     setWinners(data.val())
                 }
@@ -24,8 +25,8 @@ const Winners = ({ children }) => {
 
         firebase
             .database()
-            .ref('2020/live')
-            .on('value', data => {
+            .ref(`${ACTIVE_YEAR}/live`)
+            .on('value', (data) => {
                 if (data.val()) {
                     setAwardsPresented(data.val())
                 }
@@ -34,8 +35,8 @@ const Winners = ({ children }) => {
 
         firebase
             .database()
-            .ref('2020/current')
-            .on('value', data => {
+            .ref(`${ACTIVE_YEAR}/current`)
+            .on('value', (data) => {
                 if (data.val()) {
                     setCurrentAward(data.val())
                 }
@@ -44,25 +45,19 @@ const Winners = ({ children }) => {
     }, [])
 
     function recordWinner(award, winner) {
-        const awardPath = `2020/results/${award}`
-        firebase
-            .database()
-            .ref(awardPath)
-            .set(winner)
+        const awardPath = `${ACTIVE_YEAR}/results/${award}`
+        firebase.database().ref(awardPath).set(winner)
 
         if (!awardsPresented.includes(award)) {
             firebase
                 .database()
-                .ref('2020/live')
+                .ref(`${ACTIVE_YEAR}/live`)
                 .set([...awardsPresented, award])
         }
     }
 
     function updateCurrentAward(awardId) {
-        firebase
-            .database()
-            .ref('2020/current')
-            .set(awardId)
+        firebase.database().ref(`${ACTIVE_YEAR}/current`).set(awardId)
     }
 
     return (

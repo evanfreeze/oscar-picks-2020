@@ -10,15 +10,17 @@ const AwardList = () => {
     const { loading, picks, setNewPick } = useContext(UserPicks)
 
     return (
-        <Section title="Your picks" id="your-picks">
-            {awardsData.awards.map((award) => (
-                <Award
-                    key={award.title}
-                    award={award}
-                    setNewPick={setNewPick}
-                    currentPick={picks[award.id] || null}
-                />
-            ))}
+        <Section title="Your Picks" id="your-picks">
+            {loading && <p>Loading...</p>}
+            {!loading &&
+                awardsData.awards.map((award) => (
+                    <Award
+                        key={award.title}
+                        award={award}
+                        setNewPick={setNewPick}
+                        currentPick={picks[award.id] || null}
+                    />
+                ))}
         </Section>
     )
 }

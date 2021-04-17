@@ -55,7 +55,7 @@ const Results = () => {
             )}
             {!showCountdown && (
                 <SubSection
-                    title="Presented awards"
+                    title="Presented Awards"
                     subtitle="Each award presented on the broadcast along with your pick (most recent on top)"
                 >
                     {awardsPresented.length < 2 && (

@@ -12,7 +12,7 @@ const Award = ({ award, currentPick, setNewPick }) => {
     const { recordWinner, winners, updateCurrentAward, currentAward } = useContext(AwardWinners)
     const { isAdmin } = useContext(User)
 
-    const setPickValue = nomineeId => {
+    const setPickValue = (nomineeId) => {
         setNewPick(award.id, nomineeId)
         setTimeout(() => {
             setCollapsed(true)
@@ -55,7 +55,7 @@ const Award = ({ award, currentPick, setNewPick }) => {
                         defaultValue={winners[award.id]}
                     >
                         <option value="TBA">Choose {award.title} winner...</option>
-                        {award.nominees.map(nominee => (
+                        {award.nominees.map((nominee) => (
                             <option key={nominee.id} value={nominee.id}>
                                 {nominee.name}
                             </option>
@@ -73,7 +73,7 @@ const Award = ({ award, currentPick, setNewPick }) => {
 
             {!collapsed && (
                 <StyledAwardList>
-                    {award.nominees.map(nominee => {
+                    {award.nominees.map((nominee) => {
                         return (
                             <Nominee
                                 key={nominee.id}

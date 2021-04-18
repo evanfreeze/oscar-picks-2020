@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Nominee = ({ name, nominee, picked, setPickValue }) => {
-    const handlePickChange = event => {
+    const handlePickChange = (event) => {
         const { target: value } = event
         setPickValue(value.id)
     }
@@ -17,7 +17,7 @@ const Nominee = ({ name, nominee, picked, setPickValue }) => {
                 checked={picked}
                 onChange={handlePickChange}
             />
-            <NomineeImage src={nominee.image} height="100px" />
+            {nominee.image && <NomineeImage src={nominee.image} height="100px" />}
             <NomineeText>
                 <NomineeTitle>{nominee.name}</NomineeTitle>
                 <NomineeDescription>{nominee.description}</NomineeDescription>
@@ -30,8 +30,13 @@ const NomineeLabel = styled.label`
     display: flex;
     align-items: center;
     padding: 10px 0;
-    border-radius: 4px;
-    background: ${props => (props.picked ? 'rgba(50,190,170,0.2)' : 'initial')};
+    border-radius: 8px;
+    background: ${(props) => (props.picked ? 'rgba(50,190,170,0.3)' : 'initial')};
+    border: 2px solid white;
+
+    :hover {
+        border: 2px solid rgba(50, 190, 170, 0.3);
+    }
 `
 
 const NomineeRadio = styled.input`

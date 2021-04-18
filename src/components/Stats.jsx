@@ -10,7 +10,7 @@ const Stats = () => {
     const { loading, picks } = useContext(UserPicks)
 
     const calculateMostPicked = () => {
-        const allMetaAndNames = Object.keys(picks).flatMap(pick => {
+        const allMetaAndNames = Object.keys(picks).flatMap((pick) => {
             const fullPick = getNomineeFromId(picks[pick])
             return [fullPick.name, fullPick.description]
         })
@@ -51,11 +51,11 @@ const Stats = () => {
                 </SubSection>
 
                 <SubSection
-                    title="Most picked"
+                    title="Most Picked"
                     subtitle="You'll see your most picked nominees here as you make selections"
                 >
                     {pickCount >= 3 &&
-                        topThree.map(pick => (
+                        topThree.map((pick) => (
                             <TopThreePick key={pick.name}>
                                 <h4>{pick.name}</h4>
                                 <h5>
@@ -81,7 +81,7 @@ const Stats = () => {
     }
 
     return (
-        <Section title="Your stats" id="stats">
+        <Section title="Your Stats" id="stats">
             {renderContents()}
         </Section>
     )
@@ -95,9 +95,9 @@ const ProgressBg = styled.div`
 `
 
 const ProgressFill = styled.div`
-    width: ${props => props.percentage}%;
+    width: ${(props) => props.percentage}%;
     height: 20px;
-    border-radius: ${props => (props.percentage < 100 ? '6px 0 0 6px' : '6px')};
+    border-radius: ${(props) => (props.percentage < 100 ? '6px 0 0 6px' : '6px')};
     background: rgba(50, 190, 170, 1.4);
 `
 

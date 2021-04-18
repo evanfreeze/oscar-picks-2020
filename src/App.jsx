@@ -18,7 +18,7 @@ const App = () => {
         <StyledApp>
             <HeaderContainer>
                 <AppHeader>
-                    <h1>Oscar Picks 2020</h1>
+                    <h1>Oscar Picks • 2021</h1>
                     {renderUserInfoWidget()}
                 </AppHeader>
             </HeaderContainer>

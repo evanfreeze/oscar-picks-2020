@@ -1,20 +1,20 @@
 {
-    "name": "Oscars2020",
-    "version": "1.0.0",
-    "description": "Try to predict who'll win each award at the 2020 Academy Awards",
-    "main": "index.js",
+    "name": "oscar-picks",
+    "version": "2.0.0",
+    "description": "Try to predict who'll win each award at the Academy Awards",
+    "main": "dist/index.html",
     "author": "Evan Freeze <evan@evanfreeze.com>",
     "license": "ISC",
     "private": true,
     "scripts": {
-        "dev": "parcel src/index.html",
-        "build": "parcel build src/index.html",
+        "start": "parcel ./src/index.html",
+        "build": "parcel build ./src/index.html ",
         "format": "prettier \"src/**/*.{js,html}\" --write",
         "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
         "test": "echo \"no tests\" && exit 1"
     },
     "devDependencies": {
-        "@babel/core": "^7.8.3",
+        "@babel/core": "^7.13.15",
         "babel-eslint": "^10.0.3",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.9.0",
@@ -22,7 +22,7 @@
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-react": "^7.18.0",
         "eslint-plugin-react-hooks": "^2.3.0",
-        "parcel-bundler": "^1.12.4",
+        "parcel": "^2.0.0-beta.2",
         "prettier": "^1.19.1"
     },
     "dependencies": {
@@ -34,5 +34,8 @@
         "react-dom": "^16.12.0",
         "react-icons": "^3.8.0",
         "styled-components": "^5.0.0"
+    },
+    "engines": {
+        "node": ">=14.15.1"
     }
 }

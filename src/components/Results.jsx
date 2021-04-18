@@ -55,13 +55,13 @@ const Results = () => {
             )}
             {!showCountdown && (
                 <SubSection
-                    title="Presented awards"
+                    title="Presented Awards"
                     subtitle="Each award presented on the broadcast along with your pick (most recent on top)"
                 >
                     {awardsPresented.length < 2 && (
                         <EmptyMessage>No awards have been presented yet</EmptyMessage>
                     )}
-                    {awardsPresented.reverse().map(awardId => {
+                    {awardsPresented.reverse().map((awardId) => {
                         if (awardId === 'start') return null
 
                         const pickIsCorrect = winners[awardId] === picks[awardId]
@@ -97,7 +97,7 @@ const Results = () => {
 }
 
 const PresentedAward = styled.section`
-    background: ${props => (props.correct ? 'rgba(50,190,170,0.2)' : 'rgba(255, 0, 0, 0.1)')};
+    background: ${(props) => (props.correct ? 'rgba(50,190,170,0.2)' : 'rgba(255, 0, 0, 0.1)')};
     padding: 1rem;
     border-radius: 6px;
     margin: 0.5rem 0;
@@ -135,7 +135,7 @@ const ResultBox = styled.div`
 
 const Icon = styled.span`
     font-size: 1.2rem;
-    color: ${props => props.color || 'inherit'};
+    color: ${(props) => props.color || 'inherit'};
 `
 
 const EmptyMessage = styled.p`

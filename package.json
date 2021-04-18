@@ -36,6 +36,6 @@
         "styled-components": "^5.0.0"
     },
     "engines": {
-        "node": ">=11.0"
+        "node": ">=14.15.1"
     }
 }

@@ -1,6 +1,38 @@
 import { describe, expect, it } from "vitest"
-import { mergePicks, slugifyAwardName } from "../helpers"
-import { AwardPick } from "~/types"
+import {
+  createBuildAwardDetailsDataFunction,
+  createBuildAwardsNavigationListFunction,
+  mergePicks,
+  slugifyAwardName,
+} from "../helpers"
+import { AwardPick, AwardsData, UserPick } from "~/types"
+
+// @ts-expect-error don't want to define every single award for this mock
+const mockAwards: AwardsData = {
+  "Best Picture": [
+    {
+      title: "Oppenheimer",
+      subtitle: "Christopher Nolan",
+    },
+  ],
+  "Actress in a Leading Role": [
+    {
+      title: "Margot Robbie",
+      subtitle: "Barbie",
+    },
+  ],
+}
+
+const mockPicks: UserPick = {
+  userId: "mockUserId",
+  picks: [
+    {
+      year: "2024",
+      awardName: "Best Picture",
+      pick: "Barbie",
+    },
+  ],
+}
 
 const [oppBP, barBP, lilyLA]: Array<AwardPick> = [
   {
@@ -45,5 +77,39 @@ describe("slugifyAwardName", () => {
     expect(slugifyAwardName("Writing (Adapted Screenplay)")).toEqual(
       "writing-adapted-screenplay",
     )
+  })
+})
+
+describe("createNavListFromAwardsAndPicks", () => {
+  it("builds a navigation list in the correct format with pick status", () => {
+    expect(
+      createBuildAwardsNavigationListFunction(mockAwards)(mockPicks),
+    ).toEqual([
+      {
+        awardName: "Best Picture",
+        isPicked: true,
+        awardSlug: "best-picture",
+      },
+      {
+        awardName: "Actress in a Leading Role",
+        isPicked: false,
+        awardSlug: "actress-in-a-leading-role",
+      },
+    ])
+  })
+})
+
+describe("createBuildAwardDetailsDataFunction", () => {
+  it("builds the data for the award detail page correctly", () => {
+    expect(
+      createBuildAwardDetailsDataFunction(mockAwards)(
+        "best-picture",
+        mockPicks,
+      ),
+    ).toEqual({
+      awardName: "Best Picture",
+      nominees: mockAwards["Best Picture"],
+      currentPick: "Barbie",
+    })
   })
 })

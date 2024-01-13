@@ -12,3 +12,10 @@ export type UserPick = {
   userId: string
   picks: Array<AwardPick>
 }
+
+export type Nominee = {
+  title: string
+  subtitle: string
+}
+
+export type AwardsData = Record<keyof typeof awardsData, Array<Nominee>>

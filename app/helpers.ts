@@ -1,4 +1,5 @@
-import { AwardPick } from "./types"
+import { AwardPick, AwardsData, UserPick } from "./types"
+import awardsData from "./2023-awards-data.json"
 
 export function mergePicks(
   oldPicks: Array<AwardPick>,
@@ -40,3 +41,34 @@ export function slugifyAwardName(awardName: string) {
     .replaceAll(")", "")
     .replaceAll(" ", "-")
 }
+
+export function createBuildAwardsNavigationListFunction(
+  awardsData: AwardsData,
+) {
+  return (picks: UserPick | undefined) => {
+    return Array.from(Object.keys(awardsData)).map((awardName) => ({
+      awardName,
+      isPicked: Boolean(
+        (picks?.picks ?? []).find((pick) => pick.awardName === awardName),
+      ),
+      awardSlug: slugifyAwardName(awardName),
+    }))
+  }
+}
+export const buildAwardsNavigationList =
+  createBuildAwardsNavigationListFunction(awardsData)
+
+export function createBuildAwardDetailsDataFunction(awardsData: AwardsData) {
+  return (awardNameParam: string | undefined, picks: UserPick | undefined) => {
+    const [awardName, nominees] = Array.from(Object.entries(awardsData)).find(
+      ([awardName]) => slugifyAwardName(awardName) === awardNameParam,
+    ) ?? ["", []]
+
+    const { pick: currentPick } =
+      (picks?.picks ?? []).find((pick) => pick.awardName === awardName) ?? {}
+
+    return { awardName, nominees, currentPick }
+  }
+}
+export const buildAwardDetailsData =
+  createBuildAwardDetailsDataFunction(awardsData)

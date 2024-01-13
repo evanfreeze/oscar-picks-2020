@@ -1,12 +1,12 @@
 import { Client, fql, FaunaError } from "fauna"
 import { AwardPick, UserPick } from "~/types"
 
-export let getUserPicksByUserId = async (userId: string) => {
-  let client = new Client()
+export const getUserPicksByUserId = async (userId: string) => {
+  const client = new Client()
 
   try {
-    let query = fql`UserPicks.byUserId(${userId}).first()`
-    let response = await client.query<UserPick>(query)
+    const query = fql`UserPicks.byUserId(${userId}).first()`
+    const response = await client.query<UserPick>(query)
     return response.data
   } catch (error) {
     if (error instanceof FaunaError) {
@@ -19,12 +19,12 @@ export let getUserPicksByUserId = async (userId: string) => {
   }
 }
 
-export let createUserPicksForUserId = async (userId: string) => {
-  let client = new Client()
+export const createUserPicksForUserId = async (userId: string) => {
+  const client = new Client()
 
   try {
-    let query = fql`UserPicks.create({ userId: ${userId} })`
-    let response = await client.query<UserPick>(query)
+    const query = fql`UserPicks.create({ userId: ${userId} })`
+    const response = await client.query<UserPick>(query)
     if (response.data) {
       return response.data
     } else {
@@ -41,15 +41,15 @@ export let createUserPicksForUserId = async (userId: string) => {
   }
 }
 
-export let updatePicksByUserId = async (
+export const updatePicksByUserId = async (
   userId: string,
   picks: Array<AwardPick>,
 ) => {
-  let client = new Client()
+  const client = new Client()
 
   try {
-    let query = fql`UserPicks.byUserId(${userId}).first()!.updateData({ picks: ${picks} })`
-    let response = await client.query(query)
+    const query = fql`UserPicks.byUserId(${userId}).first()!.updateData({ picks: ${picks} })`
+    const response = await client.query(query)
     if (response.data) {
       return response.data
     } else {

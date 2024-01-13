@@ -8,3 +8,7 @@ export const loader: LoaderFunction = async (args) => {
     return redirect("/picks")
   }
 }
+
+export default function IndexPage() {
+  return <></>
+}

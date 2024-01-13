@@ -4,7 +4,7 @@ import {
   createBuildAwardsNavigationListFunction,
   mergePicks,
   slugifyAwardName,
-} from "../helpers"
+} from "../utils/helpers"
 import { AwardPick, AwardsData, UserPick } from "~/types"
 
 // @ts-expect-error don't want to define every single award for this mock

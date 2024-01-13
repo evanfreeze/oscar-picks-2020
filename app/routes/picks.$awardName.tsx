@@ -3,12 +3,12 @@ import { useFetcher, useLoaderData } from "@remix-run/react"
 import { useRef } from "react"
 import NomineeOption from "~/components/NomineeOption"
 import { updatePicksByUserId } from "~/db/fauna.server"
-import { buildAwardDetailsData } from "~/helpers"
+import { buildAwardDetailsData } from "~/utils/helpers"
 import {
   buildMergedPicks,
   fetchUsersPicks,
   requireUserId,
-} from "~/helpers.server"
+} from "~/utils/helpers.server"
 
 export async function loader(args: LoaderFunctionArgs) {
   const userId = await requireUserId(args)

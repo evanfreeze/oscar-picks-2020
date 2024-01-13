@@ -1,9 +1,9 @@
 import { LoaderFunctionArgs } from "@remix-run/node"
 import { Outlet, useFetchers, useLoaderData } from "@remix-run/react"
 import AwardPageLink from "~/components/AwardPageLink"
-import { buildAwardsNavigationList } from "~/helpers"
-import { fetchUsersPicks, requireUserId } from "~/helpers.server"
-import { useSelectedAwardSlug } from "~/hooks"
+import { buildAwardsNavigationList } from "~/utils/helpers"
+import { fetchUsersPicks, requireUserId } from "~/utils/helpers.server"
+import { useSelectedAwardSlug } from "~/utils/hooks"
 
 export async function loader(args: LoaderFunctionArgs) {
   const userId = await requireUserId(args)

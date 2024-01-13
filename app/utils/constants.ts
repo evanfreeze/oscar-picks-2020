@@ -1,3 +1,3 @@
-import { Year } from "./types"
+import { Year } from "../types"
 
 export const CURRENT_YEAR: Year = "2024"

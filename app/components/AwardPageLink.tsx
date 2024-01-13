@@ -1,5 +1,5 @@
 import { Link, useFetchers } from "@remix-run/react"
-import { buildAwardsNavigationList } from "~/helpers"
+import { buildAwardsNavigationList } from "~/utils/helpers"
 
 type AwardPageLinkProps = {
   item: ReturnType<typeof buildAwardsNavigationList>[0]

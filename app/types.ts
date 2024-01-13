@@ -1,4 +1,4 @@
-import awardsData from "./2023-awards-data.json"
+import awardsData from "./utils/2023-awards-data.json"
 
 export type Year = "2024"
 

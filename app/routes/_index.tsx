@@ -1,5 +1,5 @@
 import { LoaderFunction, redirect } from "@remix-run/node"
-import { requireUserId } from "~/helpers.server"
+import { requireUserId } from "~/utils/helpers.server"
 
 export const loader: LoaderFunction = async (args) => {
   const userId = await requireUserId(args)

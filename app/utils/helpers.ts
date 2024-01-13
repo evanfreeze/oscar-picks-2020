@@ -1,4 +1,4 @@
-import { AwardPick, AwardsData, UserPick } from "./types"
+import { AwardPick, AwardsData, UserPick } from "../types"
 import awardsData from "./2023-awards-data.json"
 
 export function mergePicks(

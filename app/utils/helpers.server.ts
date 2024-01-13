@@ -7,8 +7,8 @@ import {
 import {
   createUserPicksForUserId,
   getUserPicksByUserId,
-} from "./db/fauna.server"
-import { AwardPick } from "./types"
+} from "../db/fauna.server"
+import { AwardPick } from "../types"
 import { CURRENT_YEAR } from "./constants"
 import { mergePicks } from "./helpers"
 

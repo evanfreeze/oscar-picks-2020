@@ -1,5 +1,4 @@
-import { getAuth } from "@clerk/remix/ssr.server"
-import { LoaderFunctionArgs, redirect } from "@remix-run/node"
+import { LoaderFunctionArgs } from "@remix-run/node"
 import {
   Link,
   Outlet,
@@ -13,13 +12,10 @@ import {
   getUserPicksByUserId,
 } from "~/db/fauna.server"
 import { slugifyAwardName } from "~/helpers"
+import { requireUserId } from "~/helpers.server"
 
 export async function loader(args: LoaderFunctionArgs) {
-  const { userId } = await getAuth(args)
-
-  if (!userId) {
-    throw redirect(`/sign-in?redirect_url=${args.request.url}`)
-  }
+  const userId = await requireUserId(args)
 
   let picks = await getUserPicksByUserId(userId)
 

@@ -1,10 +1,10 @@
-import { getAuth } from "@clerk/remix/ssr.server"
 import { LoaderFunction, redirect } from "@remix-run/node"
+import { requireUserId } from "~/helpers.server"
 
 export const loader: LoaderFunction = async (args) => {
-  const { userId } = await getAuth(args)
-  if (!userId) {
-    return redirect("/sign-in")
+  const userId = await requireUserId(args)
+
+  if (userId) {
+    return redirect("/picks")
   }
-  return redirect("/picks")
 }

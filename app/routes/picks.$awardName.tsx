@@ -1,9 +1,4 @@
-import { getAuth } from "@clerk/remix/ssr.server"
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  redirect,
-} from "@remix-run/node"
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node"
 import { useFetcher, useLoaderData } from "@remix-run/react"
 import { useRef } from "react"
 import awardsData from "~/2023-awards-data.json"
@@ -14,14 +9,11 @@ import {
   updatePicksByUserId,
 } from "~/db/fauna.server"
 import { mergePicks, slugifyAwardName } from "~/helpers"
+import { requireUserId } from "~/helpers.server"
 import { AwardPick } from "~/types"
 
 export async function loader(args: LoaderFunctionArgs) {
-  const { userId } = await getAuth(args)
-
-  if (!userId) {
-    throw redirect(`/sign-in?redirect_url=${args.request.url}`)
-  }
+  const userId = await requireUserId(args)
 
   let picks = await getUserPicksByUserId(userId)
 
@@ -41,11 +33,7 @@ export async function loader(args: LoaderFunctionArgs) {
 }
 
 export async function action(args: ActionFunctionArgs) {
-  const { userId } = await getAuth(args)
-
-  if (!userId) {
-    return redirect(`/sign-in?redirect_url=${args.request.url}`)
-  }
+  const userId = await requireUserId(args)
 
   const formData = await args.request.formData()
   const [submission] = Array.from(formData)

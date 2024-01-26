@@ -30,7 +30,7 @@ function App() {
         <Meta />
         <Links />
       </head>
-      <body className="max-w-screen-lg mx-auto p-6">
+      <body className="max-w-screen-lg mx-auto py-6 px-12">
         <header className="flex justify-between items-center border-b pb-4 mb-6">
           <h1 className="text-2xl font-bold">Oscar Picks 2024</h1>
           <UserButton />

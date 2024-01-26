@@ -1,6 +1,9 @@
 node_modules
-.cache
-dist
+
+/.cache
+/public/build
+/build
 .env
-.git
-.parcel-cache
+
+# Local Netlify folder
+.netlify

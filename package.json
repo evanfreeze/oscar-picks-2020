@@ -1,41 +1,52 @@
 {
-    "name": "oscar-picks",
-    "version": "2.0.0",
-    "description": "Try to predict who'll win each award at the Academy Awards",
-    "main": "dist/index.html",
-    "author": "Evan Freeze <evan@evanfreeze.com>",
-    "license": "ISC",
-    "private": true,
-    "scripts": {
-        "start": "parcel serve ./src/index.html",
-        "build": "parcel build ./src/index.html ",
-        "format": "prettier \"src/**/*.{js,html}\" --write",
-        "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-        "test": "echo \"no tests\" && exit 1"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.13.15",
-        "babel-eslint": "^10.0.3",
-        "eslint": "^6.8.0",
-        "eslint-config-prettier": "^6.9.0",
-        "eslint-plugin-import": "^2.20.0",
-        "eslint-plugin-jsx-a11y": "^6.2.3",
-        "eslint-plugin-react": "^7.18.0",
-        "eslint-plugin-react-hooks": "^2.3.0",
-        "parcel-bundler": "^1.12.5",
-        "prettier": "^1.19.1"
-    },
-    "dependencies": {
-        "@reach/router": "^1.3.1",
-        "date-fns": "^2.9.0",
-        "dotenv": "^8.2.0",
-        "firebase": "^7.7.0",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0",
-        "react-icons": "^3.8.0",
-        "styled-components": "^5.0.0"
-    },
-    "engines": {
-        "node": ">=14.15.1"
-    }
+  "name": "oscar-picks",
+  "version": "3.0.0",
+  "description": "Try to predict who'll win each award at the Academy Awards",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "author": "Evan Freeze <evan@evanfreeze.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "start": "netlify serve",
+    "typecheck": "tsc -b",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@clerk/remix": "^3.1.14",
+    "@netlify/functions": "^2.5.1",
+    "@netlify/remix-adapter": "^2.2.0",
+    "@remix-run/node": "^2.5.0",
+    "@remix-run/react": "^2.5.0",
+    "cross-env": "^7.0.3",
+    "date-fns": "^3.2.0",
+    "fauna": "^1.3.1",
+    "isbot": "^4.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.5.0",
+    "@remix-run/eslint-config": "^2.5.1",
+    "@remix-run/serve": "^2.5.1",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

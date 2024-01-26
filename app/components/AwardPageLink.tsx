@@ -12,6 +12,19 @@ export default function AwardPageLink({
   fetchers,
   isActive,
 }: AwardPageLinkProps) {
+  const leadingIcon = (() => {
+    if (
+      fetchers.find((fetcher) => fetcher.key === item.awardName)?.state ===
+      "submitting"
+    ) {
+      return "⏳"
+    }
+    if (item.isPicked) {
+      return "✅"
+    }
+    return ""
+  })()
+
   return (
     <li
       key={item.awardName}
@@ -21,13 +34,9 @@ export default function AwardPageLink({
           : "hover:bg-gray-200"
       }`}
     >
-      {item.isPicked ? <span>✅</span> : <span></span>}
+      <span>{leadingIcon}</span>
       <Link to={`/picks/${item.awardSlug}`} className={`block py-1 px-2`}>
-        {item.awardName}{" "}
-        {fetchers.find((fetcher) => fetcher.key === item.awardName)?.state ===
-        "submitting"
-          ? "⏳"
-          : ""}
+        {item.awardName}
       </Link>
     </li>
   )

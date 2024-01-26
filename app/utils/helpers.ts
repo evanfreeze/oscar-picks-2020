@@ -1,5 +1,6 @@
 import { AwardPick, AwardsData, UserPick } from "../types"
-import awardsData from "./2023-awards-data.json"
+import awardsData from "./2024-awards-data.json"
+import { CURRENT_YEAR } from "./constants"
 
 export function mergePicks(
   oldPicks: Array<AwardPick>,
@@ -49,7 +50,9 @@ export function createBuildAwardsNavigationListFunction(
     return Array.from(Object.keys(awardsData)).map((awardName) => ({
       awardName,
       isPicked: Boolean(
-        (picks?.picks ?? []).find((pick) => pick.awardName === awardName),
+        (picks?.picks ?? []).find(
+          (pick) => pick.awardName === awardName && pick.year === CURRENT_YEAR,
+        ),
       ),
       awardSlug: slugifyAwardName(awardName),
     }))
